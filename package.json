@@ -1,0 +1,32 @@
+{
+  "name": "be-tml",
+  "version": "1.0.1",
+  "description": "no",
+  "main": "index.js",
+  "scripts": {
+    "test": "no",
+    "start": "nodemon node index.js"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "jwt",
+    "mongodb"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.4",
+    "nodemon": "^2.0.16",
+    "swagger-jsdoc": "^6.0.0",
+    "swagger-ui-express": "^4.4.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.1",
+    "nodemon": "^2.0.16"
+  }
+}
