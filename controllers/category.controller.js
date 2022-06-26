@@ -17,11 +17,11 @@ async function getAllCategorys(search, reqPage, reqLimit) {
 }
 
 async function getCategoryById(id) {
-    let catchphrase;
+    let category;
     try {
-        catchphrase = await Category.findById(id);
-        if (catchphrase == null) {
-            return { success: false, message: 'Cannot find catchphrase' };
+        category = await Category.findById(id);
+        if (category == null) {
+            return { success: false, message: 'Cannot find category' };
         }
     } catch (err) {
         return { success: false, message: err.message };
@@ -29,7 +29,7 @@ async function getCategoryById(id) {
 
     return {
         success: true,
-        data: catchphrase,
+        data: category,
     };
 }
 
