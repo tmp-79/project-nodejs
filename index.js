@@ -29,9 +29,9 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(cors(corsOptions));
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 const server = app.listen(process.env.PORT || 5000, () => {
     const port = server.address().port;
-    console.log(`Up and running 🚀${port}`)
+    console.log(`Up and running 🚀🚀🚀🚀🚀🚀 ${port} 🚀🚀🚀🚀🚀🚀`)
 });
