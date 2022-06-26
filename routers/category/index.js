@@ -24,10 +24,11 @@ const router = express.Router()
  *         description: Created
  */
 router.post('/', async function (req, res) {
+    console.log(req)
     let body = {
-        name: req.body.name,
-        language: req.body.language,
-        description: req.body.description,
+        name: req.body.name ?? req.query.name,
+        language: req.body.language ?? req.query.language,
+        description: req.body.description ?? req.query.description,
     };
     let response = await addCategory(body);
 
