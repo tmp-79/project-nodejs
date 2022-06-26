@@ -5,11 +5,11 @@ const router = require('./routers/index');
 const app = express();
 const swaggerJsDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const newLocal = 'dotenv';
 require('dotenv').config()
 
 //connect DB
 const connectDb = require("./config/db");
-const { route } = require('./routers/index');
 const rootRouter = require('./routers/index');
 connectDb();
 
