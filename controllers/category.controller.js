@@ -43,7 +43,7 @@ async function addCategory(body) {
         const newCategory = await category.save();
         return {
             success: true,
-            data: newCategory,
+            data: body,
             message: categoryMessage.success,
         };
     } catch (err) {
