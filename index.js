@@ -25,9 +25,10 @@ const swaggerOptions = {
 
 const corsOptions = "http://localhost:4200";
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
-app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+// app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(cors(corsOptions));
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.listen(process.env.PORT || 5000, () => console.log('Up and running 🚀'));
