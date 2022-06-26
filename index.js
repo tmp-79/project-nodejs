@@ -20,5 +20,5 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 app.use('/api', rootRouter);
 
 app.listen(process.env.PORT || 5000, () => {
-    console.log(`Up and running 🚀🚀🚀🚀🚀🚀 ${port} 🚀🚀🚀🚀🚀🚀`)
+    console.log(`Up and running 🚀🚀🚀🚀🚀🚀 HEHEH 🚀🚀🚀🚀🚀🚀`)
 });
