@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCategory, getAllCategorys } = require('../../controllers/category.controller');
+const { addCategory, getAllCategorys, getCategoryById } = require('../../controllers/category.controller');
 const router = express.Router()
 
 /**
@@ -45,6 +45,11 @@ router.get('/', async (req, res) => {
     } else {
         res.status(404).json(response);
     }
+});
+
+router.get('/:id', async (req, res) => {
+    let response = await getCategoryById(req.params.id);
+    res.json(response);
 });
 
 module.exports = router;
