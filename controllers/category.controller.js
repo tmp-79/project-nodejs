@@ -38,12 +38,11 @@ async function getCategoryById(id) {
 
 async function addCategory(body) {
     const category = new Category(body);
-
     try {
         const newCategory = await category.save();
         return {
             success: true,
-            data: body,
+            data: newCategory,
             message: categoryMessage.success,
         };
     } catch (err) {
@@ -86,18 +85,18 @@ async function updateCategory(id, name = null, reqCatchphrase = null, movieConte
 }
 
 async function removeCategory(id) {
-    let catchphrase;
+    let category;
     try {
-        catchphrase = await Category.findById(id);
-        if (catchphrase == null) {
-            return { success: false, message: 'Cannot find catchphrase' };
+        category = await Category.findById(id);
+        if (category == null) {
+            return { success: false, message: 'Cannot find category' };
         }
 
         try {
-            await catchphrase.remove()
+            await category.remove()
             return {
                 success: true,
-                message: 'Deleted Catchphrase'
+                message: 'Deleted category'
             };
         } catch (err) {
             return { success: false, message: err.message };
