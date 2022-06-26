@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCategory, getAllCategorys, getCategoryById } = require('../../controllers/category.controller');
+const { addCategory, getAllCategorys, getCategoryById, removeCategory } = require('../../controllers/category.controller');
 const router = express.Router()
 
 /**
@@ -24,7 +24,6 @@ const router = express.Router()
  *         description: Created
  */
 router.post('/', async function (req, res) {
-    console.log(req)
     let body = {
         name: req.body.name ?? req.query.name,
         language: req.body.language ?? req.query.language,
@@ -40,7 +39,12 @@ router.post('/', async function (req, res) {
 })
 
 router.get('/', async (req, res) => {
-    let response = await getAllCategorys(req.query.s, req.query.page, req.query.limit);
+    let response;
+    if (req.query.id) {
+        response = await getCategoryById(req.query.id);
+    } else {
+        response = await getAllCategorys();
+    }
     if (response.success == true) {
         res.status(200).json(response);
     } else {
@@ -48,9 +52,13 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
-    let response = await getCategoryById(req.params.id);
-    res.json(response);
+router.delete('/', async (req, res) => {
+    let response = await removeCategory(req.query.id)
+    try {
+        res.status(200).json(response);
+    } catch (err) {
+        res.status(500).json(response);
+    }
 });
 
 module.exports = router;

@@ -1,15 +1,16 @@
 const { categoryMessage } = require('../constant/category.message');
 const Category = require('../models/category.model');
 
-async function getAllCategorys(search, reqPage, reqLimit) {
+async function getAllCategorys() {
     try {
-        const catchphrases = await Category.find()
+        let categoryAll;
+        await Category.find().then((result) => {
+            categoryAll = result.filter((item) => item.name != null);
+        });
         return {
             success: true,
-            data: catchphrases,
-            total: (await total).toString(),
-            page: (await page).toString(),
-            last_page: (await last_page).toString(),
+            data: categoryAll,
+            message: categoryMessage.get_all_success
         };
     } catch (err) {
         return { success: false, message: "Catchphrases not found" };
@@ -21,15 +22,16 @@ async function getCategoryById(id) {
     try {
         category = await Category.findById(id);
         if (category == null) {
-            return { success: false, message: 'Cannot find category' };
+            return { success: false, message: categoryMessage.one_failed };
         }
     } catch (err) {
-        return { success: false, message: err.message };
+        return { success: false, message: categoryMessage.one_failed };
     }
 
     return {
         success: true,
         data: category,
+        message: categoryMessage.get_one_success
     };
 }
 
@@ -38,6 +40,21 @@ async function getCategoryById(id) {
 
 async function addCategory(body) {
     const category = new Category(body);
+    let exsting = false;
+    await Category.find({ name: body.name }).then((res) => {
+        console.log("res: ", res)
+        if(res.length > 0){
+            exsting = true;
+        }
+    });
+
+    if(exsting){
+        return {
+            success: false,
+            data: null,
+            message: categoryMessage.post_existing,
+        };
+    }
     try {
         const newCategory = await category.save();
         return {
@@ -89,20 +106,21 @@ async function removeCategory(id) {
     try {
         category = await Category.findById(id);
         if (category == null) {
-            return { success: false, message: 'Cannot find category' };
+            return { success: false, message: categoryMessage.delete_one_failed, data: category };
         }
 
         try {
             await category.remove()
             return {
                 success: true,
-                message: 'Deleted category'
+                message: categoryMessage.delete_one_success,
+                data: category
             };
         } catch (err) {
-            return { success: false, message: err.message };
+            return { success: false, message: categoryMessage.delete_one_failed, data: category };
         }
     } catch (err) {
-        return { success: false, message: err.message };
+        return { success: false, message: categoryMessage.delete_one_failed, data: category };
     }
 }
 
