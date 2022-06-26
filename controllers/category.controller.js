@@ -2,27 +2,8 @@ const { categoryMessage } = require('../constant/category.message');
 const Category = require('../models/category.model');
 
 async function getAllCategorys(search, reqPage, reqLimit) {
-    let options = {};
-
-    if (search) {
-        options = {
-            ...options,
-            $or: [
-                { name: new RegExp(search.toString(), 'i') },
-            ]
-        }
-    }
-
-    let total = Category.countDocuments(options);
-    let page = parseInt(reqPage) || 1;
-    let limit = parseInt(reqLimit) || parseInt(await total);
-    let last_page = Math.ceil(parseInt(await total) / limit);
-    if (last_page < 1 && total > 0) {
-        last_page = 1
-    }
-
     try {
-        const catchphrases = await Category.find(options).skip((page - 1) * limit).limit(limit);
+        const catchphrases = await Category.find()
         return {
             success: true,
             data: catchphrases,
