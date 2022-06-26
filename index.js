@@ -26,7 +26,6 @@ const swaggerOptions = {
 }
 
 const corsOptions = "http://localhost:4200";
-const swaggerDocs = swaggerJsDoc(swaggerOptions);
 // app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(cors(corsOptions));
 app.use(bodyParser.json()) // for parsing application/json
