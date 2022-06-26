@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCategory } = require('../../controllers/category.controller');
+const { addCategory, getAllCategorys } = require('../../controllers/category.controller');
 const router = express.Router()
 
 /**
@@ -37,4 +37,14 @@ router.post('/', async function (req, res) {
         res.status(404).json(response);
     }
 })
+
+router.get('/', async (req, res) => {
+    let response = await getAllCategorys(req.query.s, req.query.page, req.query.limit);
+    if (response.success == true) {
+        res.status(200).json(response);
+    } else {
+        res.status(404).json(response);
+    }
+});
+
 module.exports = router;

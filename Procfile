@@ -1,1 +1,1 @@
-worker: gnpm start
+worker: npm start
