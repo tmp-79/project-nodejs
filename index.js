@@ -9,6 +9,8 @@ require('dotenv').config()
 
 //connect DB
 const connectDb = require("./config/db");
+const { route } = require('./routers/index');
+const rootRouter = require('./routers/index');
 connectDb();
 
 app.use(express.json());
@@ -29,7 +31,7 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 app.use(cors(corsOptions));
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/',rootRouter);
 
 const server = app.listen(process.env.PORT || 5000, () => {
     const port = server.address().port;
