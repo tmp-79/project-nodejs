@@ -1,4 +1,4 @@
-const { categoryMessage } = require('../constant/category.message');
+const { messageConstant } = require('../constant/category.message');
 const Category = require('../models/category.model');
 
 async function getAllCategorys() {
@@ -10,7 +10,7 @@ async function getAllCategorys() {
         return {
             success: true,
             data: categoryAll,
-            message: categoryMessage.get_all_success
+            message: messageConstant.get_all_success
         };
     } catch (err) {
         return { success: false, message: "Catchphrases not found" };
@@ -22,16 +22,16 @@ async function getCategoryById(id) {
     try {
         category = await Category.findById(id);
         if (category == null) {
-            return { success: false, message: categoryMessage.one_failed };
+            return { success: false, message: messageConstant.one_failed };
         }
     } catch (err) {
-        return { success: false, message: categoryMessage.one_failed };
+        return { success: false, message: messageConstant.one_failed };
     }
 
     return {
         success: true,
         data: category,
-        message: categoryMessage.get_one_success
+        message: messageConstant.get_one_success
     };
 }
 
@@ -52,7 +52,7 @@ async function addCategory(body) {
         return {
             success: false,
             data: null,
-            message: categoryMessage.post_existing,
+            message: messageConstant.post_existing,
         };
     }
     try {
@@ -60,11 +60,11 @@ async function addCategory(body) {
         return {
             success: true,
             data: newCategory,
-            message: categoryMessage.success,
+            message: messageConstant.success,
         };
     } catch (err) {
         return {
-            success: false, message: categoryMessage.failed
+            success: false, message: messageConstant.failed
         };
     }
 }
@@ -106,21 +106,21 @@ async function removeCategory(id) {
     try {
         category = await Category.findById(id);
         if (category == null) {
-            return { success: false, message: categoryMessage.delete_one_failed, data: category };
+            return { success: false, message: messageConstant.delete_one_failed, data: category };
         }
 
         try {
             await category.remove()
             return {
                 success: true,
-                message: categoryMessage.delete_one_success,
+                message: messageConstant.delete_one_success,
                 data: category
             };
         } catch (err) {
-            return { success: false, message: categoryMessage.delete_one_failed, data: category };
+            return { success: false, message: messageConstant.delete_one_failed, data: category };
         }
     } catch (err) {
-        return { success: false, message: categoryMessage.delete_one_failed, data: category };
+        return { success: false, message: messageConstant.delete_one_failed, data: category };
     }
 }
 
