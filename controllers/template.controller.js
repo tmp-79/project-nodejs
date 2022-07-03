@@ -52,10 +52,10 @@ async function getTemplateById(id) {
     try {
         template = await Template.findById(id);
         if (template == null) {
-            return { success: false, message: messageConstant.one_failed };
+            return { success: false, message: messageConstant.one_failed, data: template };
         }
     } catch (err) {
-        return { success: false, message: messageConstant.one_failed };
+        return { success: false, message: messageConstant.one_failed, data: null };
     }
 
     return {
