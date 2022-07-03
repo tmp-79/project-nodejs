@@ -51,6 +51,7 @@ async function getTemplateById(id) {
     let template;
     try {
         template = await Template.findById(id);
+        console.log(template)
         if (template == null) {
             return { success: false, message: messageConstant.one_failed, data: template };
         }
@@ -90,9 +91,42 @@ async function removeTemplate(id) {
 }
 
 
+async function updateTemplate(id, body) {
+    let template;
+    let newTemplate;
+    try {
+        template = await Template.findById(id);
+        if (template === null || template === undefined) {
+            return { success: false, message: messageConstant.update_fail, data: template };
+        }
+        newTemplate = Object.assign(template, {
+            name: body.name,
+            description: body.description,
+            language: body.language,
+            views: body.views,
+            purchases: body.purchases,
+            price: body.price,
+            image: body.image
+        });
+        await newTemplate.save();
+        return {
+            message: messageConstant.update_success,
+            data: newTemplate,
+            success: true
+        }
+    } catch (err) {
+        return {
+            message:err.message,
+            data: template,
+            success: false
+        }
+    }
+}
+
 module.exports = {
     addTemplate,
     getAllTemplates,
     getTemplateById,
-    removeTemplate
+    removeTemplate,
+    updateTemplate
 }

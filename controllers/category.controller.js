@@ -43,12 +43,12 @@ async function addCategory(body) {
     let exsting = false;
     await Category.find({ name: body.name }).then((res) => {
         console.log("res: ", res)
-        if(res.length > 0){
+        if (res.length > 0) {
             exsting = true;
         }
     });
 
-    if(exsting){
+    if (exsting) {
         return {
             success: false,
             data: null,
@@ -121,6 +121,34 @@ async function removeCategory(id) {
         }
     } catch (err) {
         return { success: false, message: messageConstant.delete_one_failed, data: category };
+    }
+}
+
+async function updateCategory(id, body) {
+    let category;
+    let newCategory;
+    try {
+        category = await Category.findById(id);
+        if (category === null || category === undefined) {
+            return { success: false, message: messageConstant.update_fail, data: category };
+        }
+        newCategory = Object.assign(category, {
+            name: body.name,
+            description: body.description,
+            language: body.language
+        });
+        await newCategory.save();
+        return {
+            message: messageConstant.update_success,
+            data: newCategory,
+            success: true
+        }
+    } catch (err) {
+        return {
+            message: err.message,
+            data: category,
+            success: false
+        }
     }
 }
 

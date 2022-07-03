@@ -1,5 +1,6 @@
 const express = require('express');
-const { addCategory, getAllCategorys, getCategoryById, removeCategory } = require('../../controllers/category.controller');
+const { addCategory, getAllCategorys, getCategoryById, removeCategory, updateCategory } = require('../../controllers/category.controller');
+const { updateTemplate } = require('../../controllers/template.controller');
 const router = express.Router()
 
 /**
@@ -25,9 +26,9 @@ const router = express.Router()
  */
 router.post('/', async function (req, res) {
     let body = {
-        name: req.body.name ?? req.query.name,
-        language: req.body.language ?? req.query.language,
-        description: req.body.description ?? req.query.description,
+        name: req.body.name,
+        language: req.body.language,
+        description: req.body.description,
     };
     let response = await addCategory(body);
 
@@ -51,6 +52,25 @@ router.get('/', async (req, res) => {
         res.status(404).json(response);
     }
 });
+
+router.put('/', async (req, res) => {
+    let id = req.query.id;
+    let body = req.body;
+    if (!id || !body.name || !body.language) {
+        res.status(400).json({
+            success: false,
+            message: "Update thất bại, thiếu dữ liệu",
+            data: null
+        })
+        return
+    }
+    const response = await updateCategory(id, body);
+    if (response.success) {
+        res.status(200).json(response);
+    } else {
+        res.status(500).json(response);
+    }
+})
 
 router.delete('/', async (req, res) => {
     let response = await removeCategory(req.query.id)

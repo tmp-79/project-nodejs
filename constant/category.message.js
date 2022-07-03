@@ -6,7 +6,9 @@ const GET_ONE_SUCCESS = "Tìm kiếm thành công.";
 const GET_ALL = "Tìm kiếm thành công danh sách";
 const DELETE_ONE = "Xóa thành công.";
 const DELETE_ONE_FAILED = "Xóa thất bại!!";
-const EXISTING = "Đã tồn tại này trên hệ thống!!"
+const EXISTING = "Đã tồn tại trên hệ thống!!";
+const UPDATE_FAIL = "Cập nhật thất bại, không tìm thấy dữ liêu cẩn cập nhật!"
+const UPDATE_SUCCESS = "Cập nhật thành công!!"
 const messageConstant = {
     success: SUCESS,
     failed: FAILED,
@@ -16,7 +18,9 @@ const messageConstant = {
     one_failed: ONE_FAILED,
     delete_one_failed: DELETE_ONE_FAILED,
     delete_one_success: DELETE_ONE,
-    post_existing: EXISTING
+    post_existing: EXISTING,
+    update_fail:UPDATE_FAIL,
+    update_success:UPDATE_SUCCESS
 }
 
 module.exports = {
